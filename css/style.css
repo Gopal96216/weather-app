@@ -153,3 +153,59 @@ h2 {
 .cloud4 { top: 350px; animation: moveCloud 14s linear infinite; }
 .cloud5 { top: 450px; animation: moveCloud 18s linear infinite; }
 .cloud6 { top: 500px; animation: moveCloud 22s linear infinite; }
+
+/* Forecast Section */
+.forecast {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.forecast h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.forecast-days {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.day-card {
+  background-color: #fff;
+  color: #333;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.day-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.day-date {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.day-weather-icon img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.day-temperature {
+  font-size: 22px;
+  color: #ff4b2b;
+  margin-bottom: 5px;
+}
+
+.day-description {
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
