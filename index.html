@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <h1>Weather App</h1>
-  <h2>Check the latest weather updates instantly!</h2>
 
-  <div class="search-box">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="weather-box">
+    <h1>Weather App</h1>
+    <h2>Check the latest weather updates instantly!</h2>
+
+    <div class="search-box">
+
       <input type="text" id="city-input" placeholder="Enter city name">
       <button id="search-btn">Search</button>
-  </div>
+      <button id="geo-btn">My Location</button>
 
-  <div class="weather-info">
+    </div>
+
+    <div class="weather-info">
       <p id="city-name"></p>
       <p id="temperature"></p>
       <p id="weather-description"></p>
-  </div>
-  <div class="forecast">
-    <h2>3-Day Weather Forecast</h2>
-    <div class="forecast-days">
-        <!-- Forecast data for each day will be added dynamically -->
     </div>
-</div>
-  <div class="cloud cloud1"></div>
-    <div class="cloud cloud2"></div>
-    <div class="cloud cloud3"></div>
-    <div class="cloud cloud4"></div>
-    <div class="cloud cloud5"></div>
-    <div class="cloud cloud6"></div>
-<script src="js/app.js"></script>
+    <div class="forecast">
+      <h2>3-Day Weather Forecast</h2>
+      <div class="forecast-days">
+        <!-- Forecast data for each day will be added dynamically -->
+      </div>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
 </body>
-</html>
 
+</html>
