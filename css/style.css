@@ -8,7 +8,7 @@ body {
   font-family: 'Poppins', sans-serif;
   text-align: center;
   background: linear-gradient(135deg, #4facfe, #00f2fe);
-  color: white;
+  color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,8 +16,9 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
-  transition: background 1.5s ease-in-out; 
- }
+  transition: background 1.5s ease-in-out;
+}
+
 h1 {
   font-size: 48px;
   font-weight: 700;
@@ -50,6 +51,7 @@ h2 {
   padding-left: 18px;
 }
 
+#geo-btn,
 #search-btn {
   padding: 14px 28px;
   font-size: 18px;
@@ -63,6 +65,7 @@ h2 {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
+#geo-btn:hover,
 #search-btn:hover {
   background: linear-gradient(45deg, #ff4b2b, #ff416c);
   transform: scale(1.12);
@@ -70,15 +73,19 @@ h2 {
 }
 
 .weather-info {
+  display: flex;
   background: rgba(255, 255, 255, 0.2);
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-  width: 340px;
+  width: 60%;
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   margin-top: 25px;
   transition: all 0.4s ease;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .weather-info:hover {
@@ -106,53 +113,6 @@ h2 {
   font-size: 20px;
   text-transform: capitalize;
 }
-.cloud {
-  position: absolute;
-  width: 150px;
-  height: 80px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
-  opacity: 0.8;
-}
-
-.cloud::before,
-.cloud::after {
-  content: "";
-  position: absolute;
-  background: white;
-  width: 100px;
-  height: 80px;
-  border-radius: 50%;
-}
-
-.cloud::before {
-  top: -30px;
-  left: 20px;
-}
-
-.cloud::after {
-  top: -20px;
-  right: 30px;
-}
-
-/* Cloud Animation */
-@keyframes moveCloud {
-  from {
-      left: -200px;
-  }
-  to {
-      left: 100%;
-  }
-}
-
-/* Multiple Clouds with Different Positions & Speeds */
-.cloud1 { top: 50px; animation: moveCloud 12s linear infinite; }
-.cloud2 { top: 150px; animation: moveCloud 16s linear infinite; }
-.cloud3 { top: 250px; animation: moveCloud 10s linear infinite; }
-.cloud4 { top: 350px; animation: moveCloud 14s linear infinite; }
-.cloud5 { top: 450px; animation: moveCloud 18s linear infinite; }
-.cloud6 { top: 500px; animation: moveCloud 22s linear infinite; }
 
 /* Forecast Section */
 .forecast {
@@ -163,6 +123,8 @@ h2 {
 .forecast h2 {
   font-size: 26px;
   margin-bottom: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 .forecast-days {
@@ -209,3 +171,21 @@ h2 {
   text-transform: capitalize;
 }
 
+.weather-box {
+  background: rgba(255, 255, 255, 0.1);
+  /* transparent white box */
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  /* glass effect */
+  text-align: center;
+  color: white;
+  width: 800px;
+  margin: 0 auto;
+  height: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,6 +1,38 @@
 const apiKey = "27517e493705b5514fd6eeff8c42c268";
 
-// Function to fetch current weather data
+// Simulating my current location using fixed coordinates (Lucknow)
+function getUserLocation() {
+    return {
+        latitude: 26.850000,
+        longitude: 80.949997
+    };
+}
+
+// Fetch weather info based on latitude and longitude (used for simulated location)
+async function fetchWeatherByCoordinates(lat, lon) {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        console.log("Geo Weather Data:", data);
+
+        document.getElementById("city-name").innerText = `📍 ${data.name}, ${data.sys.country}`;
+        document.getElementById("temperature").innerText = `🌡️ ${data.main.temp}°C`;
+        document.getElementById("weather-description").innerText = `☁️ ${data.weather[0].description}`;
+
+        document.querySelector(".weather-info").style.display = "block";
+        changeBackground(data.weather[0].main.toLowerCase());
+
+        // Reusing city name to get forecast data
+        fetchForecastData(data.name);
+    } catch (error) {
+        console.error("Error fetching geolocation weather:", error);
+        alert("Couldn't fetch weather for your simulated location.");
+    }
+}
+
+// Function to fetch current weather data based on city input
 async function fetchWeatherData(city) {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
@@ -20,9 +52,7 @@ async function fetchWeatherData(city) {
         // Show weather info box
         document.querySelector(".weather-info").style.display = "block";
 
-        // Get weather condition & change theme
-        const weatherCondition = data.weather[0].main.toLowerCase();
-        changeBackground(weatherCondition);
+
 
         // Fetch 3-day forecast for the city
         fetchForecastData(city);
@@ -54,15 +84,15 @@ async function fetchForecastData(city) {
     }
 }
 
-// Function to process and display 3-day forecast
+// Display forecast cards dynamically for next 3 days
 function processForecastData(forecastData) {
     const forecastDaysContainer = document.querySelector(".forecast-days");
     forecastDaysContainer.innerHTML = "";  // Clear old data
 
-    // Filter data for 12:00 PM forecasts
+    // Get forecast for 12:00 PM only (to make it clean and consistent)
     const filteredData = forecastData.list.filter(item => item.dt_txt.includes("12:00:00"));
 
-    // Get only the first 3 days
+    // Limit to first 3 days
     const threeDayForecast = filteredData.slice(0, 3);
 
     threeDayForecast.forEach(day => {
@@ -85,61 +115,8 @@ function processForecastData(forecastData) {
     });
 }
 
-// Function to change background based on weather
-function changeBackground(condition) {
-    let backgroundGradient = "";
-
-    if (condition.includes("clear")) {
-        backgroundGradient = "linear-gradient(135deg, #f6d365 0%, #fda085 100%)"; // Sunny
-    } else if (condition.includes("cloud")) {
-        backgroundGradient = "linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%)"; // Cloudy
-    } else if (condition.includes("rain")) {
-        backgroundGradient = "linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)"; // Rainy
-    } else if (condition.includes("mist") || condition.includes("haze")) {
-        backgroundGradient = "linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%)"; // Misty
-    } else if (condition.includes("snow")) {
-        backgroundGradient = "linear-gradient(135deg, #e0eafc 0%, #fdfbfb 100%)"; // Snow
-    } else {
-        backgroundGradient = "linear-gradient(135deg, #83a4d4 0%, #b6fbff 100%)"; // Default
-    }
-
-    document.body.style.background = backgroundGradient;
-    document.body.style.transition = "background 1s ease-in-out";
-    function changeBackground(condition) {
-        let backgroundGradient = "";
-    
-        // Reset all effects first
-        document.querySelector(".clouds").style.display = "none";
-        document.querySelector(".rain").style.display = "none";
-        document.querySelector(".snow").style.display = "none";
-    
-        if (condition.includes("clear")) {
-            backgroundGradient = "linear-gradient(135deg, #f6d365 0%, #fda085 100%)";
-            // Clear = No special effects
-        } else if (condition.includes("cloud")) {
-            backgroundGradient = "linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%)";
-            document.querySelector(".clouds").style.display = "block"; // Clouds move
-        } else if (condition.includes("rain")) {
-            backgroundGradient = "linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)";
-            document.querySelector(".rain").style.display = "block"; // Rain falls
-        } else if (condition.includes("mist") || condition.includes("haze")) {
-            backgroundGradient = "linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%)";
-            // No special effect, but can add fog later
-        } else if (condition.includes("snow")) {
-            backgroundGradient = "linear-gradient(135deg, #e0eafc 0%, #fdfbfb 100%)";
-            document.querySelector(".snow").style.display = "block"; // Snow falls
-        } else {
-            backgroundGradient = "linear-gradient(135deg, #83a4d4 0%, #b6fbff 100%)";
-        }
-    
-        document.body.style.background = backgroundGradient;
-        document.body.style.transition = "background 1s ease-in-out";
-    }
-    
-}
-
-// Event listener for search button
-document.getElementById("search-btn").addEventListener("click", function() {
+//  When user enters a city name manually and clicks search
+document.getElementById("search-btn").addEventListener("click", function () {
     const city = document.getElementById("city-input").value.trim();
     if (city === "") {
         alert("Please enter a city name.");
@@ -147,3 +124,12 @@ document.getElementById("search-btn").addEventListener("click", function() {
     }
     fetchWeatherData(city);
 });
+
+//  Handle "My Location" button click
+const geoBtn = document.getElementById("geo-btn");
+if (geoBtn) {
+    geoBtn.addEventListener("click", function () {
+        const location = getUserLocation();
+        fetchWeatherByCoordinates(location.latitude, location.longitude);
+    });
+}
